@@ -9,11 +9,7 @@ export class Home extends Component {
     return (
         <div>
             <button class="tstbtnstyle btn btn-success">Click Me!</button>
-            <button class="tstbtnstyle btn btn-success">Click Me!</button>
-            <button class="tstbtnstyle btn btn-success">Click Me!</button>
-            <button class="tstbtnstyle btn btn-success">Click Me!</button>
-            <button class="tstbtnstyle btn btn-success">Click Me!</button>
-            <button class="tstbtnstyle btn btn-success">Click Me!</button>
+            
       </div>
     );
   }
