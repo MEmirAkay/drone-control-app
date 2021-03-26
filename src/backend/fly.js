@@ -9,7 +9,7 @@ const drone = dgram.createSocket('udp4');
 drone.bind(PORT);
 
 drone.on('message', message => {
-    console.log(`🤖 : ${message}`);
+    console.log(`Tello : ${message}`);
   });
 
 function handleError (err) {
@@ -19,14 +19,15 @@ function handleError (err) {
     }
   }
 
-  const commands = ['command', 'battery?', 'takeoff', 'land'];
+  const commands = ['command', 'takeoff', 'up', 'down','land',];
 
   let i = 0;
 
 async function go() {
     const command = commands[i];
     const delay = commandDelays[command];
-    console.log('running command : ${ command }');
+    console.log('Command: ',command);
+    
     drone.send(command, 0, command.length, PORT, HOST, handleError);
 
     await wait(delay);
@@ -36,6 +37,7 @@ async function go() {
         return go();
     }
     console.log('done!');
+
 
   }
 
