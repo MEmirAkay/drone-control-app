@@ -13,13 +13,16 @@ drone.bind(PORT);
 const droneState = dgram.createSocket('udp4');
 droneState.bind(8890);
 
+const droneVideoStream = dgram.createSocket('udp4');
+droneVideoStream.bind(11111);
+
 function parseState (state) {
     return state
       .split(';')
       .map(x => x.split(':'))
       .reduce((data, [key, value]) => {
         data[key] = value
-        return data
+        return data 
       }, {})
   }
   
