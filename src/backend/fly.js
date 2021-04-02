@@ -66,6 +66,7 @@ go();
 
 */
 
+
 io.on('connection', (socket) => {
   socket.on('command',command => {
     console.log('Commend sent from browser');
