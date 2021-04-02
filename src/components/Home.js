@@ -5,14 +5,6 @@ import io from 'socket.io-client'
 import '../backend/fly';
 const socket = io('http://localhost:6767');
 
-function useDroneState () {
-  const [droneState, updateDroneState] = useState()
-  useEffect(() => {
-    socket.on('dronestate', updateDroneState)
-    return () => socket.removeListener('dronestate')
-  }, [])
-  return droneState
-}
 
 function sendCommand(command){
   return function(){
