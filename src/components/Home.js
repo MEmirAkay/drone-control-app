@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
-import isUndefined from 'lodash/isUndefined';
 import "../backend/fly";
-import io from 'socket.io-client'
-import '../backend/fly';
+import io from 'socket.io-client';
 const socket = io('http://localhost:6767');
-
 
 function sendCommand(command){
   return function(){
@@ -19,7 +16,7 @@ export class Home extends Component {
     return (
         <div className="container">
             <button class="tstbtnstyle btn btn-success" onClick={sendCommand('takeoff')}>Drone Takeoff</button>
-            <button class="tstbtnstyle btn btn-success" onClick={sendCommand('land')}>Drone Land</button>
+            <button class="tstbtnstyle btn btn-danger" onClick={sendCommand('land')}>Drone Land</button>
       </div>
     );
   }

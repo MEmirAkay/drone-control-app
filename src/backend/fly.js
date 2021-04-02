@@ -1,15 +1,17 @@
 const dgram = require('dgram');
 const wait = require('waait');
+const app = require('express')();
+const http = require('http').Server(app);
+const io = require('socket.io')(http);
 const commandDelays = require('./commandDelays');
 
 const PORT = 8889;
 const HOST = '192.168.10.1';
-/*
+
 function parseState(state) {
   return state.split(';').map(x => x.spilt(':'));
 
 }
-*/
 
 const drone = dgram.createSocket('udp4');
 drone.bind(PORT);
@@ -21,8 +23,10 @@ drone.on('message', message => {
   console.log(`🤖 : ${message}`);
 });
 
-droneState.on('message', message => {
-  console.log(`Tello_State : ${message}`);
+droneState.on('message', state => {
+  console.log(`Tello_State : ${state}`);
+  const formattedState = parseState(state);
+  console.log(formattedState);
 });
 
 function handleError (err) {
@@ -32,7 +36,11 @@ function handleError (err) {
   }
 }
 
-const commands = ['command', 'battery?','time?','speed?'];
+
+
+/*
+
+const commands = ['command', 'battery?'];
 
   let i = 0;
 
@@ -43,7 +51,7 @@ async function go() {
     console.log('Command: ',command);
     
     drone.send(command, 0, command.length, PORT, HOST, handleError);
-    droneState.send('command', 0, 7, 8890, HOST, handleError);
+  
     await wait(delay);
     i += 1;
 
@@ -55,3 +63,18 @@ async function go() {
   }
 
 go();
+
+*/
+
+io.on('connection', (socket) => {
+  socket.on('command',command => {
+    console.log('Commend sent from browser');
+  });
+
+  socket.emit('status', 'CONNECTED');
+
+});
+
+http.listen(6767, () => {
+  console.log('Socket io server up and running');
+})
