@@ -3,6 +3,7 @@ const wait = require('waait');
 const app = require('express')();
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
+const throttle = require('lodash/throttle');
 const commandDelays = require('./commandDelays');
 
 const PORT = 8889;
@@ -67,15 +68,24 @@ go();
 */
 
 
-io.on('connection', (socket) => {
-  socket.on('command',command => {
+io.on('connection', (socket) => { 
+  socket.on('command',command => { // HTTP response
     console.log('Commend sent from browser');
   });
 
-  socket.emit('status', 'CONNECTED');
+  socket.emit('status', 'CONNECTED');//HTTP request
 
 });
 
+droneState.on(
+  'message',
+  throttle(state => {
+    const formattedState = parseState(state.toString());
+    io.sockets.emit('dronestate', formattedState);
+  }, 100)
+);
+
+
 http.listen(6767, () => {
   console.log('Socket io server up and running');
-})
+});

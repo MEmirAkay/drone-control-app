@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import "../backend/fly";
-import io from 'socket.io-client';
-const socket = io('http://localhost:6767');
+import socket from '../frontend/socket';
 
 function sendCommand(command){
   return function(){
+    console.log('Sending command : ',command);
     socket.emit('command',command);
   };
 }
