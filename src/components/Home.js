@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import socket from '../frontend/socket';
+import socket from './socket';
 
 function sendCommand(command){
   return function(){

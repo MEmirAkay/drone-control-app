@@ -1,15 +1,24 @@
 const dgram = require('dgram');
 const app = require('express')();
 const http = require('http').Server(app);
-const io = require('socket.io')(http);
+const io = require('socket.io')(http,{
+  cors: {
+    origin: '*',
+  }
+});
 const throttle = require('lodash/throttle');
 
 const PORT = 8889;
 const HOST = '192.168.10.1';
 
-function parseState(state) {
-  return state.split(';').map(x => x.spilt(':'));
-
+function parseState (state) {
+  return state
+    .split(';')
+    .map(x => x.split(':'))
+    .reduce((data, [key, value]) => {
+      data[key] = value
+      return data
+    }, {})
 }
 
 const drone = dgram.createSocket('udp4');
@@ -20,7 +29,9 @@ droneState.bind(8890);
 
 drone.on('message', message => {
   console.log(`🤖 : ${message}`);
+  io.sockets.emit('status', message.toString());
 });
+
 
 droneState.on('message', state => {
   console.log(`Tello_State : ${state}`);
