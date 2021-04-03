@@ -1,11 +1,7 @@
 const dgram = require('dgram');
 const app = require('express')();
 const http = require('http').Server(app);
-const io = require('socket.io')(http,{
-  cors: {
-    origin: '*',
-  }
-});
+const io = require('socket.io')(http);
 const throttle = require('lodash/throttle');
 
 const PORT = 8889;
@@ -22,22 +18,24 @@ function parseState (state) {
 }
 
 const drone = dgram.createSocket('udp4');
-drone.bind(PORT);
+drone.bind(PORT)
 
 const droneState = dgram.createSocket('udp4');
-droneState.bind(8890);
+droneState.bind(8890)
 
 drone.on('message', message => {
   console.log(`🤖 : ${message}`);
   io.sockets.emit('status', message.toString());
-});
+})
 
 
-droneState.on('message', state => {
-  console.log(`Tello_State : ${state}`);
-  const formattedState = parseState(state);
-  console.log(formattedState);
-});
+droneState.on(
+  'message',
+  throttle(state => {
+    const formattedState = parseState(state.toString())
+    io.sockets.emit('dronestate', formattedState)
+  }, 100)
+)
 
 function handleError (err) {
   if (err) {

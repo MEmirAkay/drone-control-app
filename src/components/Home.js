@@ -14,6 +14,7 @@ export class Home extends Component {
   render () {
     return (
         <div className="container">
+            <button class="tstbtnstyle btn btn-success" onClick={sendCommand('battery?')}>Battery</button>
             <button class="tstbtnstyle btn btn-success" onClick={sendCommand('takeoff')}>Drone Takeoff</button>
             <button class="tstbtnstyle btn btn-danger" onClick={sendCommand('land')}>Drone Land</button>
       </div>
