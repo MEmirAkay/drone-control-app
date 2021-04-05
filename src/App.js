@@ -4,6 +4,7 @@ import './App.css';
 import Navbar from './components/navbar'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Home from './components/home';
+import DroneState from './components/DroneState';
 
 
 function App() {
@@ -12,6 +13,7 @@ function App() {
       <Router>
         <Navbar />
       </Router>    
+      <DroneState/>
       <Home />
     </>
   );

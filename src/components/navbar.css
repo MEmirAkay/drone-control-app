@@ -9,7 +9,7 @@
   background-color: #101014;
   height: 80px;
   display: flex;
-  justify-content: start;
+  
   align-items: center;
 }
 
@@ -55,7 +55,7 @@
 
 .nav-text {
   display: flex;
-  justify-content: start;
+  
   align-items: center;
   padding: 0px 0px 0px 0px;
   list-style: none;
@@ -90,7 +90,7 @@
   height: 80px;
   padding-left: 10px;
   display: flex;
-  justify-content: start;
+  
   align-items: center;
 }
 
