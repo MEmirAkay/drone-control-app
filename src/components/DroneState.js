@@ -37,9 +37,9 @@ const DroneState = () => {
             <p>Battery : {battery}</p>
             <p>Status : {status} </p>
             <p>Pitch : {droneState.pitch} </p>
-            <p>Status : {droneState.roll} </p>
-            <p>Status : {droneState.yaw} </p>
-            <p>Status : {droneState.h} </p>
+            <p>Roll : {droneState.roll} </p>
+            <p>Yaw : {droneState.yaw} </p>
+            <p>H : {droneState.h} </p>
         </div>
     );
 };

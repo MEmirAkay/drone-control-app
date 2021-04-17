@@ -1,8 +1,9 @@
 const dgram = require('dgram');
 const app = require('express')();
-const { Server } = require('socket.io');
 const http = require('http').Server(app);
-const io = require('socket.io')(http);
+const io = require('socket.io')(http, {
+  cors: {origin : "*" }
+});
 const throttle = require('lodash/throttle');
 
 const PORT = 8889;
@@ -37,14 +38,7 @@ function handleError (err) {
   }
 }
 
-/*
-droneBattery.on(
-  'dronebattery'
-  io.socket.emit('dronebattery');
-)
-*/
-
-droneState.on(
+droneState.on( // Drone state verilerinin soketen dinlenmesi
   'message',
   throttle(state => {
     const formattedState = parseState(state.toString())
@@ -54,17 +48,12 @@ droneState.on(
 
 drone.send('command', 0, 'command'.length, PORT, HOST, handleError);
 
-io.on('connection',socket => {
-  socket.on('command',command => {
-    console.log('Gelen komut: ');
-    console.log(command);
-  });
-})
-
 io.on('connection', socket => { // socket bağlantısı
   socket.on('command', command => {
     console.log('command Sent from browser: ');
     console.log(command);
+    console.log('command lenght : ');
+    console.log(command.length);
     drone.send(command, 0, command.length, PORT, HOST, handleError);
   });
 
