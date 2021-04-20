@@ -4,7 +4,10 @@ import './App.css';
 import Navbar from './components/navbar'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Home from './components/home';
-import DroneState from './components/DroneState';
+import Connection from './components/connection'
+import Control from './components/control';
+import Mission from './components/mission';
+
 
 
 function App() {
@@ -12,9 +15,13 @@ function App() {
     <>
       <Router>
         <Navbar />
+        <Switch>
+          <Route path='/' exact component={Home} />
+          <Route path='/connection' component={Connection} />
+          <Route path='/control' component={Control} />
+          <Route path='/mission' component={Mission} />
+        </Switch>
       </Router>    
-      <DroneState/>
-      <Home />
     </>
   );
 }

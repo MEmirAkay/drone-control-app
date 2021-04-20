@@ -25,6 +25,12 @@ function parseState (state) {
 const droneState = dgram.createSocket('udp4');
 droneState.bind(8890)
 
+const droneVideoStream = dgram.createSocket('udp4');
+droneVideoStream.bind(11111)
+
+
+
+
 drone.on('message', message => {
   console.log(`🤖 : ${message}`);
   io.sockets.emit('status', message.toString());
