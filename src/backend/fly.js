@@ -4,6 +4,7 @@ const http = require('http').Server(app);
 const io = require('socket.io')(http, {
   cors: {origin : "*" }
 });
+
 const throttle = require('lodash/throttle');
 
 const PORT = 8889;
@@ -28,9 +29,6 @@ droneState.bind(8890)
 const droneVideoStream = dgram.createSocket('udp4');
 droneVideoStream.bind(11111)
 
-
-
-
 drone.on('message', message => {
   console.log(`🤖 : ${message}`);
   io.sockets.emit('status', message.toString());
@@ -51,6 +49,7 @@ droneState.on( // Drone state verilerinin soketen dinlenmesi
     io.sockets.emit('dronestate', formattedState)
   }, 100)
 )
+
 
 drone.send('command', 0, 'command'.length, PORT, HOST, handleError);
 
