@@ -5,6 +5,7 @@ const io = require('socket.io')(http, {
   cors: {origin : "*" }
 });
 
+
 const throttle = require('lodash/throttle');
 
 const PORT = 8889;
@@ -28,6 +29,9 @@ droneState.bind(8890)
 
 const droneVideoStream = dgram.createSocket('udp4');
 droneVideoStream.bind(11111)
+
+
+
 
 drone.on('message', message => {
   console.log(`🤖 : ${message}`);

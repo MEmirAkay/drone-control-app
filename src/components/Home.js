@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import socket from './socket';
+import DroneState from './DroneState';
 
 function sendCommand(command){
   return function(){
@@ -13,8 +14,10 @@ export class Home extends Component {
 
   render () {
     return (
-
         <div className="container">
+            <>
+              <DroneState />
+            </>
             <button className="tstbtnstyle btn btn-success" onClick={sendCommand('command')}>Connect</button>
             <button className="tstbtnstyle btn btn-success" onClick={sendCommand('battery?')}>Battery</button>
             <button className="tstbtnstyle btn btn-success" onClick={sendCommand('takeoff')}>Drone Takeoff</button>
