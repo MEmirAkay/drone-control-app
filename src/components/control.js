@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import './control.css';
 import socket from './socket';
+import * as FiIcons from 'react-icons/fi'
+import Webcam from 'react-webcam';
+import ReactHlsPlayer from 'react-hls-player';
 
-let battery_level = 10;
 
 function sendCommand(command) {
   return function () {
@@ -11,78 +13,142 @@ function sendCommand(command) {
   };
 }
 
-socket.on('image',(image) => {
-  const imageElm = document.getElementById('image');
-  imageElm.src = `data:image/jpeg;base64 ${image}`;
-});
-
-const flip_button = document.getElementsByClassName('flippers');
-
-if (battery_level < 20) {
-  flip_button.disabled = true;
-}else{
-  flip_button.disabled = false;
+window.addEventListener("keypress", check_keypress, false);
+function check_keypress(key) {
+  if (key.keyCode === 81) { // Q
+    sendCommand('flip l');
+  }
+  if (key.keyCode === 87) { // W
+    sendCommand('forward 30');
+    alert('w');
+  }
+  if (key.keyCode === 69) { // E
+    sendCommand('flip r');
+  }
+  if (key.keyCode === 65) { // A
+    sendCommand('left 30');
+  }
+  if (key.keyCode === 83) { // S
+    sendCommand('back 30');
+  }
+  if (key.keyCode === 68) { // D
+    sendCommand('right 30');
+  }
+  if (key.keyCode === 82) { // R
+    sendCommand('flip f');
+  }
+  if (key.keyCode === 70) { // F
+    sendCommand('flip b');
+  }
+  if (key.keyCode === 13) { // Enter
+    sendCommand('takeoff')
+  }
+  if (key.keyCode === 32) { // Space
+    sendCommand('land');
+  }
+  if (key.keyCode === 80) { // P (Stream On)
+    sendCommand('streamon');
+  }
+  if (key.keyCode === 76) { // L (Stream Off)
+    sendCommand('streamoff');
+  }
+  if (key.keyCode === 37) { // Left Arrow
+    sendCommand('ccw 15');
+  }
+  if (key.keyCode === 38) { // Up Arrow
+    sendCommand('up 20');
+  }
+  if (key.keyCode === 40) { // Down Arrow
+    sendCommand('down 20');
+  }
+  if (key.keyCode === 39) { // Right Arrow
+    sendCommand('cw 15');
+  }
 }
-
-
 
 export class Control extends Component {
   static displayName = Control.name;
 
-
   render() {
     return (
+      <body>
+        <div className="container">
+          <h1 className="text-light">Control</h1>
+          <div className="row">
+            <div className="col">
+              <ReactHlsPlayer
+                src="https://bitdash-a.akamaihd.net/content/sintel/hls/playlist.m3u8"
+                autoPlay={true}
+                controls={true}
+                width="100%"
+                height="auto"
+              />
 
-      <div className="container">
-        <h1>Control</h1>
-               
+            </div>
+            <div className="col">
+              <Webcam
+                style={{
+                  width: 640,
+                  height: 80
+                }} />
+            </div>
+            <div className="col">
+              <button className="btn btn-success"><FiIcons.FiRefreshCcw /></button>
+            </div>
+            <div className="col">
+              <video id="videoPlayer" controls autoplay width="1140" >
+                <source url="https://www.youtube.com/watch?v=vDOkUHNdmKs" />
+              </video>
+            </div>
 
-
-        <div className="row">
-
-
-          <div className="col">
-            <div className="row">
-              <button id="flip_left" className="col btn btn-dark flippers" onClick={sendCommand('flip l')}>Q (Flip Left)</button>
-              <button id="go_forward" className="col btn btn-primary" onClick={sendCommand('forward 20')}>W (Forward)</button>
-              <button id="flip_right" className="col btn btn-dark flippers" onClick={sendCommand('flip r')}>E (Flip Right)</button>
-              <button id="flip_forward" className="col btn btn-dark flippers" onClick={sendCommand('flip f')}>R (Flip Forward)</button>
-            </div>
-            <div className="row">
-              <button id="go_left" className="col btn btn-primary" onClick={sendCommand('left 20')}>A (Left)</button>
-              <button id="go_backward" className="col btn btn-primary" onClick={sendCommand('back 20')}>S (Backward)</button>
-              <button id="go_right" className="col btn btn-primary" onClick={sendCommand('right 20')}>D (Right)</button>
-              <button id="flip_back" className="col btn btn-dark flippers" onClick={sendCommand('flip b')}>F (Flip Back)</button>
-            </div>
-          </div>
-          
-          <div className="col">
-            <div className="row">
-              <button className="col btn btn-success" onClick={sendCommand('takeoff')}>ENTER (Take Off)</button>
-            </div>
-            <div className="row">
-              <button className="col btn btn-danger" onClick={sendCommand('land')}>Space (Land)</button>
-            </div>
-          </div>
-
-          <div className="col">
-            <div className="row">
-              
-              <button className="col btn btn-dark" disabled></button>
-              <button id="go_up" className="col btn btn-primary" onClick={sendCommand('up 20')}>UP Arrow (Up)</button>
-              <button className="col btn btn-dark" disabled></button>
-              
-            </div>
-            <div className="row">
-              <button id="rotate_left" className="col btn btn-primary" onClick={sendCommand('ccw 45')}>Left Arrow (Rotate Left)</button>
-              <button id="go_down" className="col btn btn-primary" onClick={sendCommand('down 20')}>Down Arrow (Down)</button>
-              <button id="rotate_right" className="col btn btn-primary" onClick={sendCommand('cw 45')}>Right Arrow (Rotate Right)</button>
-            </div>
           </div>
 
+          <div className="row">
+            <div className="col">
+              <div className="row">
+                <button id="flip_left" className="col btn remote-btn btn-dark flippers" onClick={sendCommand('flip l')}>Q (Flip Left)</button>
+                <button id="go_forward" className="col btn remote-btn btn-primary" onClick={sendCommand('forward 20')}>W (Forward)</button>
+                <button id="flip_right" className="col btn remote-btn btn-dark flippers" onClick={sendCommand('flip r')}>E (Flip Right)</button>
+                <button id="flip_forward" className="col btn remote-btn btn-dark flippers" onClick={sendCommand('flip f')}>R (Flip Forward)</button>
+              </div>
+              <div className="row">
+                <button id="go_left" className="col remote-btn btn btn-primary" onClick={sendCommand('left 20')}>A (Left)</button>
+                <button id="go_backward" className="col remote-btn btn btn-primary" onClick={sendCommand('back 20')}>S (Backward)</button>
+                <button id="go_right" className="col remote-btn btn btn-primary" onClick={sendCommand('right 20')}>D (Right)</button>
+                <button id="flip_back" className="col remote-btn btn btn-dark flippers" onClick={sendCommand('flip b')}>F (Flip Back)</button>
+              </div>
+            </div>
+
+            <div className="col">
+              <div className="row">
+                <button className="col btn remote-btn btn-success" onClick={sendCommand('takeoff')}>ENTER (Take Off)</button>
+              </div>
+              <div className="row">
+                <button className="col btn remote-btn btn-danger" onClick={sendCommand('land')}>Space (Land)</button>
+              </div>
+            </div>
+
+            <div className="col">
+              <div className="row">
+
+                <button className="col btn remote-btn btn-dark" onClick={sendCommand('streamon')}>Stream On (P)</button>
+                <button id="go_up" className="col btn remote-btn btn-primary" onClick={sendCommand('up 20')}>UP Arrow (Up)</button>
+                <button className="col btn remote-btn btn-dark" onClick={sendCommand('streamoff')}>Stream Off (L)</button>
+
+              </div>
+              <div className="row">
+                <button id="rotate_left" className="col btn remote-btn btn-primary" onClick={sendCommand('ccw 45')}>Left Arrow (Rotate Left)</button>
+                <button id="go_down" className="col btn remote-btn btn-primary" onClick={sendCommand('down 20')}>Down Arrow (Down)</button>
+                <button id="rotate_right" className="col remote-btn btn btn-primary" onClick={sendCommand('cw 45')}>Right Arrow (Rotate Right)</button>
+              </div>
+            </div>
+
+          </div>
         </div>
 
-      </div>
+
+
+      </body>
 
     );
   }

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import socket from './socket';
+import './DroneState.css'
 
 function useDroneState() {
   const [droneState, updateDroneState] = useState({});
@@ -18,24 +19,14 @@ function useSocket() {
   }, []);
   return status;
 }
-
-function useBattery() {
-  var [battery, updateBattery] = useState('0');
-  useEffect(() => {
-    socket.on('dronebattery', updateBattery);
-    return () => socket.removeListener('dronebattery');
-  },[]);
-  return battery;
-}
   
 const DroneState = () => {
     const status = useSocket();
     const droneState = useDroneState([]);
-    var battery = useBattery();
     return (
-        <div>
-            <p>Battery : {battery}</p>
+        <div className="statusDecoration">
             <p>Status : {status} </p>
+            <p>Battery : {droneState.bat}</p>
             <p>Pitch : {droneState.pitch} </p>
             <p>Roll : {droneState.roll} </p>
             <p>Yaw : {droneState.yaw} </p>

@@ -6,6 +6,9 @@ import { SidebarData } from './sidebar_data';
 import './navbar.css';
 import { IconContext } from 'react-icons';
 
+
+
+
 function Navbar() {
     const [sidebar, setSidebar] = useState(false);
   
@@ -13,18 +16,13 @@ function Navbar() {
   
     return (
       <>
-        <IconContext.Provider value={{ color: '#fff' }}>
+        <IconContext.Provider value={{ color: 'black' }}>
           <div className='navbar'>
             <Link to='#' className='menu-bars'>
               <FaIcons.FaBars onClick={showSidebar} />
             </Link>
-            <div className="header">
-                <h2 className="text-light">
-                    Drone Control Panel
-                </h2>          
-            </div>  
           </div>
-          
+          <IconContext.Provider value={{ color: 'white' }}>
           <nav className={sidebar ? 'nav-menu active' : 'nav-menu'}>
             <ul className='nav-menu-items' onClick={showSidebar}>
               
@@ -33,12 +31,15 @@ function Navbar() {
                   <AiIcons.AiOutlineClose />
                 </Link>
               </li>
-
+              
               {SidebarData.map((item, index) => {
                 return (
-                  <li  key={index} className={item.cName}>
+                  <li  key={index} className={item.cName} >
                     <Link to={item.path}>
-                      {item.icon}
+                      <div className="nav-item-icons">
+                        {item.icon}
+                      </div>
+                      
                       <span className="navMenu-titles">{item.title}</span>
                     </Link>
                   </li>
@@ -47,6 +48,7 @@ function Navbar() {
             </ul>
           
           </nav>
+          </IconContext.Provider>
         </IconContext.Provider>
       </>
     );

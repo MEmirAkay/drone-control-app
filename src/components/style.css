@@ -1,3 +1,7 @@
 ﻿body {
     background-color: #1d1c21;
 }
+
+.container{
+    background-color: #1d1c21 !important; 
+}

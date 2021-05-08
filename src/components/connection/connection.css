@@ -1,0 +1,95 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
+
+p{
+    font-family: 'Montserrat', sans-serif !important;
+}
+
+.container{
+    padding-bottom: 20% !important;
+}
+
+#press_button{
+    margin-left: 500%;
+}
+
+#connection_pc{
+    margin-left: 500%;
+}
+
+#server_up{
+    margin-left: 500%;
+}
+
+#drone_pressbutton{
+    background-image: url('../img/drone_press_button.jpg');
+    background-size: 70%;
+    background-repeat: no-repeat;
+    padding: 50%;
+    padding-top: 0%;
+    box-shadow: 0px 5px 12px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+    background-position-y: 50%;
+    background-position-x: 50%;
+    -webkit-transition: 300ms ease !important;
+    -moz-transition: 300ms ease !important;
+    -ms-transition: 300ms ease !important;
+    -o-transition: 300ms ease !important;
+    transition: 300ms ease !important;
+}
+
+#connectiontoPC{
+    background-image: url('../img/connection.png');
+    background-size: 40%;
+    background-repeat: no-repeat;
+    padding: 50%;
+    padding-top: 0%;
+    box-shadow: 0px 5px 12px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+    background-position-y: 50%;
+    background-position-x: 50%;
+    -webkit-transition: 300ms ease !important;
+    -moz-transition: 300ms ease !important;
+    -ms-transition: 300ms ease !important;
+    -o-transition: 300ms ease !important;
+    transition: 300ms ease !important;
+}
+
+#start_server{
+    background-image: url('../img/server_up.PNG');
+    background-size: 70%;
+    background-repeat: no-repeat;
+    box-shadow: 0px 5px 12px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+    padding: 50%;
+    padding-top: 0%;
+    background-position-y: 50%;
+    background-position-x: 50%;
+    -webkit-transition: 300ms ease !important;
+    -moz-transition: 300ms ease !important;
+    -ms-transition: 300ms ease !important;
+    -o-transition: 300ms ease !important;
+    transition: 300ms ease !important;
+
+}
+
+.letsgo_btn{
+    padding-left: 34%;
+}
+
+#drive-button{
+    opacity: 1;
+    background: linear-gradient(135deg,#ee7755, #e73c7e, #23a6d5, #23d5ab);
+    width: 300px;
+    height: 80px;
+    font-size: 30px;
+    text-decoration: white;
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    border-radius: 10px;
+    box-shadow: 0px 5px 12px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+    border: none !important;
+    -webkit-transition: 300ms ease !important;
+    -moz-transition: 300ms ease !important;
+    -ms-transition: 300ms ease !important;
+    -o-transition: 300ms ease !important;
+    transition: 300ms ease !important;
+    animation: btn-animate 5s ease infinite 20sec !important;
+    animation-direction: alternate !important;
+}

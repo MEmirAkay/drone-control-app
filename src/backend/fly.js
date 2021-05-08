@@ -4,9 +4,8 @@ const http = require('http').Server(app);
 const io = require('socket.io')(http, {
   cors: {origin : "*" }
 });
-
-
 const throttle = require('lodash/throttle');
+
 
 const PORT = 8889;
 const HOST = '192.168.10.1';
@@ -25,18 +24,31 @@ function parseState (state) {
 }
 
 const droneState = dgram.createSocket('udp4');
-droneState.bind(8890)
+droneState.bind(8890);
 
 const droneVideoStream = dgram.createSocket('udp4');
-droneVideoStream.bind(11111)
-
-
-
+droneVideoStream.bind(11111);
 
 drone.on('message', message => {
   console.log(`🤖 : ${message}`);
-  io.sockets.emit('status', message.toString());
+    
+    io.sockets.emit('status', message.toString());
+})
 
+droneState.on('message', message => {
+  console.log(`${message}`);
+})
+/*
+droneState.on('message',
+  throttle(state => {
+    const formattedState = parseState(state.toString());
+    console.log(`${formattedState}`);
+    io.sockets.emit('dronestate', formattedState);
+  }, 100)
+)
+*/
+droneVideoStream.on('message',message => {
+  console.log(`Video Response : ${message}`);
 })
 
 function handleError (err) {
@@ -46,23 +58,10 @@ function handleError (err) {
   }
 }
 
-droneState.on( // Drone state verilerinin soketen dinlenmesi
-  'message',
-  throttle(state => {
-    const formattedState = parseState(state.toString())
-    io.sockets.emit('dronestate', formattedState)
-  }, 100)
-)
-
-
 drone.send('command', 0, 'command'.length, PORT, HOST, handleError);
 
 io.on('connection', socket => { // socket bağlantısı
   socket.on('command', command => {
-    console.log('command Sent from browser: ');
-    console.log(command);
-    console.log('command lenght : ');
-    console.log(command.length);
     drone.send(command, 0, command.length, PORT, HOST, handleError);
   });
 
