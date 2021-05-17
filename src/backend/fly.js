@@ -6,7 +6,6 @@ const io = require('socket.io')(http, {
 });
 const throttle = require('lodash/throttle');
 
-
 const PORT = 8889;
 const HOST = '192.168.10.1';
 
@@ -26,8 +25,7 @@ function parseState (state) {
 const droneState = dgram.createSocket('udp4');
 droneState.bind(8890);
 
-const droneVideoStream = dgram.createSocket('udp4');
-droneVideoStream.bind(11111);
+
 
 drone.on('message', message => {
   console.log(`🤖 : ${message}`);
@@ -35,21 +33,14 @@ drone.on('message', message => {
     io.sockets.emit('status', message.toString());
 })
 
-droneState.on('message', message => {
-  console.log(`${message}`);
-})
-/*
 droneState.on('message',
   throttle(state => {
     const formattedState = parseState(state.toString());
-    console.log(`${formattedState}`);
+    
     io.sockets.emit('dronestate', formattedState);
   }, 100)
 )
-*/
-droneVideoStream.on('message',message => {
-  console.log(`Video Response : ${message}`);
-})
+
 
 function handleError (err) {
   if (err) {

@@ -1,7 +1,15 @@
 .remote-btn{
-    
     z-index: 1;
     border-radius: 0px;
     width: 180px;
     height: 90px;
+}
+
+#webcam{
+    box-shadow: 0px 5px 12px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+
+}
+
+#dronecam{
+    box-shadow: 0px 5px 12px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
 }
