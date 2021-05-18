@@ -1,0 +1,42 @@
+.remote-btn{
+    z-index: 1;
+    border-radius: 0px;
+    width: 180px;
+    height: 90px;
+}
+
+#webcam{
+    box-shadow: 0px 5px 12px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+
+}
+
+#dronecam{
+    box-shadow: 0px 5px 12px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+    
+}
+
+.content{
+    max-width: 1320px;
+    padding-right: 15px;
+    padding-left: 15px;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.slidecontainer {
+    width: 100%;
+  }
+  
+  .slider {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 5px;
+    background: linear-gradient(135deg,#0084ff, rgb(64, 206, 8), #ffbb00, #ff0000);
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+  }
+  
+  
