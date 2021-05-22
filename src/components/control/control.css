@@ -1,21 +1,30 @@
-.remote-btn{
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap');
+body{
+padding-top: 0px;
+padding-bottom: 5px;
+}
+
+
+
+.remote-btn {
     z-index: 1;
     border-radius: 0px;
     width: 180px;
     height: 90px;
 }
 
-#webcam{
-    box-shadow: 0px 5px 12px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
-
+.remote-btn::after {
+  box-shadow: 
+    12px 12px 16px 0 rgba(0, 0, 0, 0.25),
+    -8px -8px 12px 0 rgba(255, 255, 255, 0.3);
 }
 
-#dronecam{
-    box-shadow: 0px 5px 12px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
-    
+#cams {
+    box-shadow: 0px 5px 12px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
-.content{
+.content {
+  padding-top: 0px;
     max-width: 1320px;
     padding-right: 15px;
     padding-left: 15px;
@@ -26,17 +35,134 @@
 
 .slidecontainer {
     width: 100%;
-  }
-  
-  .slider {
+}
+
+.slider {
     -webkit-appearance: none;
     width: 100%;
     height: 5px;
-    background: linear-gradient(135deg,#0084ff, rgb(64, 206, 8), #ffbb00, #ff0000);
+    background: linear-gradient(135deg, #000770, rgb(0, 214, 46), #ff9900, #ff0000);
     outline: none;
     opacity: 0.7;
     -webkit-transition: .2s;
     transition: opacity .2s;
+}
+
+.status{
+    background-color: red;
+    width: 110%;
+    text-align: center;
+    -webkit-transition: 300ms ease !important;
+    -moz-transition: 300ms ease !important;
+    -ms-transition: 300ms ease !important;
+    -o-transition: 300ms ease !important;
+    transition: 300ms ease !important;
+    
+}
+
+.statusText{
+    font-family: 'Montserrat', sans-serif;
+    color: white;
+}
+
+.form-switch {
+    padding-left: 5%;
+    display: inline-block;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
   }
   
+  .form-switch i {
+    box-shadow: 0px 5px 12px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    position: relative;
+    display: inline-block;
+    margin-right: .5rem;
+    width: 46px;
+    height: 26px;
+    background-color: #ff0000;
+    border-radius: 23px;
+    vertical-align: text-bottom;
+    transition: all 0.3s linear;
+  }
   
+  .form-switch i::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    width: 42px;
+    height: 22px;
+    background-color: #ff0000;
+    border-radius: 11px;
+    transform: translate3d(2px, 2px, 0) scale3d(1, 1, 1);
+    transition: all 0.25s linear;
+  }
+  
+  .form-switch i::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    width: 22px;
+    height: 22px;
+    background-color: #ffffff;
+    border-radius: 11px;
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.24);
+    transform: translate3d(2px, 2px, 0);
+    transition: all 0.2s ease-in-out;
+  }
+  
+  .form-switch:active i::after {
+    width: 28px;
+    transform: translate3d(2px, 2px, 0);
+  }
+  
+  .form-switch:active input:checked + i::after { transform: translate3d(16px, 2px, 0); }
+  
+  .form-switch input { display: none; }
+  
+  .form-switch input:checked + i { background-color: #4BD763; }
+  
+  .form-switch input:checked + i::before { transform: translate3d(18px, 2px, 0) scale3d(0, 0, 0); }
+  
+  .form-switch input:checked + i::after { transform: translate3d(22px, 2px, 0); }
+
+  .statusIcons{
+    font-size: 1.6rem;
+  }
+
+  .infoBubble{
+    overflow: hidden;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+    box-shadow: 
+    12px 12px 16px 0 rgba(0, 0, 0, 0.308),
+    -8px -8px 12px 0 rgba(255, 255, 255, 0.171);
+    border-radius: 10px;
+    visibility: hidden;
+    width: auto;
+    height: auto;
+    background-color: rgb(255, 255, 255);
+    color: black;
+    text-align: left;
+    padding: 5px 5px;
+    position: absolute;
+    z-index: 2;
+    bottom: 0%;
+    left: 50%;
+    margin-left: -60px;
+  }
+
+  .infoBubble::after{
+  position: absolute;
+  top: 100%;
+  left: 40%;
+  margin-left: -5px;
+  }
+
+  .statusP:hover .infoBubble{
+    visibility: visible;
+  }
+
+  .baro{
+    font-size: 2.5rem;
+    
+  }

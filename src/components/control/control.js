@@ -1,9 +1,12 @@
-import React, { Component, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import './control.css';
 import socket from '../socket';
 import Webcam from 'react-webcam';
 import Iframe from 'react-iframe';
-
+import Battery from './battery'
+import * as FaIcons from 'react-icons/fa';
+import * as GiIcons from 'react-icons/gi';
+import * as WiIcons from 'react-icons/wi';
 
 function sendCommand(command) {
     return function () {
@@ -36,42 +39,33 @@ var rc_c = 0;
 var rc_d = 0;
 var flightSpeed = 60;
 
-
 // <<<<<<<<<<<<<<<<<<<<<<<<<<<<            K E Y    D O W N     O P T I O N              >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 window.addEventListener("keydown", check_keydown, false);
 function check_keydown(key) {
 
     if (key.keyCode === 87) { // W
         rc_b = `${flightSpeed}`;
-
     }
     if (key.keyCode === 65) { // A
         rc_a = `-${flightSpeed}`;
-
     }
     if (key.keyCode === 83) { // S
         rc_b = `-${flightSpeed}`;
-
     }
     if (key.keyCode === 68) { // D
         rc_a = `${flightSpeed}`;
-
     }
     if (key.keyCode === 38) { // Up Arrow
         rc_c = `${flightSpeed}`;
-
     }
     if (key.keyCode === 40) { // Down Arrow
         rc_c = `-${flightSpeed}`;
-
     }
     if (key.keyCode === 37) { // Left Arrow
         rc_d = `-${flightSpeed}`;
-
     }
     if (key.keyCode === 39) { // Right Arrow
         rc_d = `${flightSpeed}`;
-
     }
     socket.emit('command', `rc ${rc_a} ${rc_b} ${rc_c} ${rc_d}`)
 
@@ -101,9 +95,6 @@ function check_keydown(key) {
     }
 }
 
-
-
-
 // <<<<<<<<<<<<<<<<<<<<<<<<<<<<            K E Y     U P      O P T I O N              >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 window.addEventListener("keyup", check_keyup, false);
@@ -111,46 +102,48 @@ function check_keyup(key) {
 
     if (key.keyCode === 87) { // W
         rc_b = 0;
-
     }
     if (key.keyCode === 65) { // A
         rc_a = 0;
-
     }
     if (key.keyCode === 83) { // S
         rc_b = 0;
-
     }
     if (key.keyCode === 68) { // D
         rc_a = 0;
-
     }
     if (key.keyCode === 38) { // Up Arrow
         rc_c = 0;
-
     }
     if (key.keyCode === 40) { // Down Arrow
         rc_c = 0;
-
     }
     if (key.keyCode === 37) { // Left Arrow
         rc_d = 0;
-
     }
     if (key.keyCode === 39) { // Right Arrow
         rc_d = 0;
-
     }
     socket.emit('command', `rc ${rc_a} ${rc_b} ${rc_c} ${rc_d}`)
-
 }
 
 const ControlComp = () => {
 
     const status = useSocket();
     const droneState = useDroneState([]);
+    
 
-    if (droneState.bat > 20) {
+    var toRoundLow = ((droneState.templ - 32) * 5) / 9;
+    var toRoundHig = ((droneState.temph - 32) * 5) / 9;
+
+    var tempLowC = toRoundLow.toFixed(2);
+    var tempHigC = toRoundHig.toFixed(2);
+
+    if (status === 'CONNECTED') {
+        document.getElementById('status').style.backgroundColor = 'green';
+    }
+
+    if (droneState.bat > 40) {
         document.getElementById('flip_left').disabled = false;
         document.getElementById('flip_right').disabled = false;
         document.getElementById('flip_forward').disabled = false;
@@ -160,8 +153,12 @@ const ControlComp = () => {
     return (
         <body>
             <div className="content">
-                <h2 className="text-light">Control</h2>
                 <div className="row">
+                    <div className="row justify-content-center status" id="status">
+                        <div className="col col-md-12">
+                            <h3 className="statusText">{status}</h3>
+                        </div>
+                    </div>
                     {/* Pilot-Cam,Video-Cam and Drone State Section */}
                     <div className="row" id="cams">
                         <div className="col" id="webcam">
@@ -171,12 +168,17 @@ const ControlComp = () => {
                                     height: 250
                                 }} />
 
-                            <div className="row justify-content-center">
-                                <div>battery : {droneState.bat}</div>
-                            </div>
-                            <div class="slidecontainer justify-content-center">
-                                <input type="range" min="1" max="100" value="50" class="slider" id="myRange"></input>
-                                <p>Speed: <span id="demo"></span></p>
+                            <div className="row justify-content-center col-md-12">
+                                <Battery className="col-md-12" battery={droneState.bat} />
+                                <p className="col-md-12 pt-3 pl-4 statusP"><FaIcons.FaTemperatureLow className="statusIcons"/><span className="infoBubble">Lowest temprature.</span> : {droneState.templ}°F - {tempLowC}°C</p>
+                                <p className="col-md-12 pl-4 statusP"><FaIcons.FaTemperatureHigh className="statusIcons"/><span className="infoBubble">Highest temprature.</span> : {droneState.temph}°F - {tempHigC}°C</p>
+                                <p className="col-md-12 ml-0 statusP"><WiIcons.WiBarometer className="statusIcons baro"/><span className="infoBubble">Barometer measurement in cm.</span> : {droneState.baro}mb</p>
+                                <p className="col-md-12 pl-4 statusP"><FaIcons.FaRulerVertical className="statusIcons"/><span className="infoBubble">The height in cm.</span> : {droneState.h}cm</p>
+                                <p className="col-md-12 statusP"><GiIcons.GiBoatPropeller className="statusIcons" /><span className="infoBubble">The amount of time the motor has been used.</span> : {droneState.time}sec</p>
+                                <p className="col-md-12 statusP"><GiIcons.GiDeliveryDrone className="statusIcons" /><span className="infoBubble">The time of flight distance in cm</span> : {droneState.tof}cm</p>
+                                <p>Pitch:{droneState.pitch} | Yaw:{droneState.yaw} | Roll:{droneState.roll}</p>
+                                <p>Speed On Axis: X-{droneState.vgx} Y-{droneState.vgy} Z-{droneState.vgz}</p>
+                                <p>Acceleration of the: X-{droneState.agx} Y-{droneState.agy} Z-{droneState.agz}</p>
                             </div>
 
 
@@ -185,7 +187,7 @@ const ControlComp = () => {
                         <div className="col" id="dronecam">
                             <Iframe url="http://localhost:8090"
                                 width="1010px"
-                                height="600px"
+                                height="650px"
                                 display="initial"
                                 position="relative" />
                         </div>

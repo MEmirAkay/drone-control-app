@@ -41,7 +41,6 @@ droneState.on('message',
   }, 100)
 )
 
-
 function handleError (err) {
   if (err) {
     console.log('ERROR')
