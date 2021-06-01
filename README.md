@@ -1,70 +1,58 @@
-# Getting Started with Create React App
+# Control Panel Solution For DJI Tello
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project offers new control solution and graphical differences than other control panels.
+<img src="src/components/img/control.png" >
 
-## Available Scripts
+## Important Informations Before Fly
+1- Make sure that Tello's firmware is updated. 
+([You can update from mobile app](https://play.google.com/store/apps/details?id=com.ryzerobotics.tello&hl=en&gl=US) by using [this](https://youtu.be/zHYj1hzlH20?t=18) tutorial.)
 
-In the project directory, you can run:
+2- The drone flight speed was set optimal speed for indoor or outdoor flights.
 
+3- If you don't send any command in 15 second drone will automatically land where it be.
+
+**I'm not responsible for any damage from drone**
+
+# Setup
+In the project directory run:
 ### `npm start`
+When opeations done, open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Stream
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+You need to install [Agent DVR](https://www.home-assistant.io/integrations/agent_dvr/) to see stream from drone.
+Agent DVR runs at [http://localhost:8090](http://localhost:8090).
 
-### `npm test`
+### If any issue about stream
+If you already installed but you still can't see any stream. You need to open these ports security access from windows firewall settings:
+*11111
+*8090
+*8889
+*8890
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+#### How to open firewall ports 
+1- Navigate to Control Panel, System and Security and Windows Firewall.
+2- Select Advanced settings and highlight Inbound Rules in the left pane.
+3- Right click Inbound Rules and select New Rule.
+4- Add the port you need to open and click Next.
+5- Add the protocol (TCP or UDP) and the port number into the next window and click Next.
+6- Select Allow the connection in the next window and hit Next.
+7- Select the network type as you see fit and click Next.
+8- Name the rule something meaningful and click Finish.
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+# How to start fly 
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+1- I already [told](http://localhost:3000/connection) into project this topic but I will tell you again :)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+2- Push start button on drone
 
-### `npm run eject`
+3- Connect drone with Wi-Fi
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+4- Go in this directory in project `\Tello-Drone\drone-control-app\src\backend\` and run this:
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### `node ./fly.js`
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+Drone will return you 'ok' message. At from this response you can use drone from control panel
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Enjoy !

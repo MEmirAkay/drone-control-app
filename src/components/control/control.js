@@ -216,10 +216,10 @@ const ControlComp = () => {
 
                         <div className="col-md-3">
                             <div className="row">
-                                <button className="col btn remote-btn btn-success" onClick={sendCommand('takeoff')}>Y <p>(Take Off)</p></button>
+                                <button className="col btn remote-btn btn-success" onClick={sendCommand('takeoff')}>Enter <p>(Take Off)</p></button>
                             </div>
                             <div className="row">
-                                <button className="col btn remote-btn btn-danger" onClick={sendCommand('land')}>H <p>(Land)</p></button>
+                                <button className="col btn remote-btn btn-danger" onClick={sendCommand('land')}>Space <p>(Land)</p></button>
                             </div>
                         </div>
 
