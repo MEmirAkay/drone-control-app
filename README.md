@@ -1,7 +1,7 @@
 # Drone Control App for Tello
 
 This project offers new control solution and graphical differences than other control panels.
-![](\src\components\img\control.PNG)
+![](https://github.com/MEmirAkay/drone-control-app/blob/master/src/components/img/control.PNG)
 
 ## Important Informations Before Fly
 1- Make sure that Tello's firmware is updated. 
