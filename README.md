@@ -1,7 +1,7 @@
-# Control Panel Solution For DJI Tello
+# Drone Control App for Tello
 
 This project offers new control solution and graphical differences than other control panels.
-<img src="src/components/img/control.png" >
+![](src/components/img/control.png)
 
 ## Important Informations Before Fly
 1- Make sure that Tello's firmware is updated. 
@@ -13,6 +13,16 @@ This project offers new control solution and graphical differences than other co
 
 **I'm not responsible for any damage from drone**
 
+# Software Used
+
+* ReactJS
+* Node.js
+* Socket.io
+* Agent DVR
+* Bootstrap
+* Gsap
+
+
 # Setup
 In the project directory run:
 ### `npm start`
@@ -20,15 +30,15 @@ When opeations done, open [http://localhost:3000](http://localhost:3000) to view
 
 ## Stream
 
-You need to install [Agent DVR](https://www.home-assistant.io/integrations/agent_dvr/) to see stream from drone.
+You need to install [Agent DVR](https://www.home-assistant.io/integrations/agent_dvr/) and connect `11111` port to see stream from drone.
 Agent DVR runs at [http://localhost:8090](http://localhost:8090).
 
 ### If any issue about stream
 If you already installed but you still can't see any stream. You need to open these ports security access from windows firewall settings:
-*11111
-*8090
-*8889
-*8890
+* 11111
+* 8090
+* 8889
+* 8890
 
 #### How to open firewall ports 
 1- Navigate to Control Panel, System and Security and Windows Firewall.
@@ -56,3 +66,21 @@ If you already installed but you still can't see any stream. You need to open th
 Drone will return you 'ok' message. At from this response you can use drone from control panel
 
 Enjoy !
+
+# Troubleshooting
+You can find all informations about troubleshooting in this document.
+
+[Drone SDK Document](https://dl-cdn.ryzerobotics.com/downloads/Tello/Tello%20SDK%202.0%20User%20Guide.pdf)
+
+
+# License 
+
+Drone Control App for Tello is licensed under the [MIT](https://github.com/MEmirAkay/drone-control-app/blob/master/LICENSE) license.
+
+# Examples & Resources
+
+[Tello-Python](https://github.com/dji-sdk/Tello-Python)
+[tello-nodejs](https://github.com/jsolderitsch/tello-nodejs)
+[tello-drone](https://github.com/AlexanderGranhof/tello-drone#readme)
+[Drone Keyboard for Tello](https://github.com/dnomak/drone-keyboard)
+[JavaScript Drones!](https://github.com/wesbos/javascript-drones)
