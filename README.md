@@ -1,7 +1,7 @@
 # Drone Control App for Tello
 
 This project offers new control solution and graphical differences than other control panels.
-![](src/components/img/control.png)
+![](\src\components\img\control.PNG)
 
 ## Important Informations Before Fly
 1- Make sure that Tello's firmware is updated. 
@@ -79,8 +79,8 @@ Drone Control App for Tello is licensed under the [MIT](https://github.com/MEmir
 
 # Examples & Resources
 
-[Tello-Python](https://github.com/dji-sdk/Tello-Python)
-[tello-nodejs](https://github.com/jsolderitsch/tello-nodejs)
-[tello-drone](https://github.com/AlexanderGranhof/tello-drone#readme)
-[Drone Keyboard for Tello](https://github.com/dnomak/drone-keyboard)
-[JavaScript Drones!](https://github.com/wesbos/javascript-drones)
+* [Tello-Python](https://github.com/dji-sdk/Tello-Python)
+* [tello-nodejs](https://github.com/jsolderitsch/tello-nodejs)
+* [tello-drone](https://github.com/AlexanderGranhof/tello-drone#readme)
+* [Drone Keyboard for Tello](https://github.com/dnomak/drone-keyboard)
+* [JavaScript Drones!](https://github.com/wesbos/javascript-drones)
